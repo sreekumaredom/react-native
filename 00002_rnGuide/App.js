@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { StyleSheet, View, FlatList } from 'react-native';
 
 //Components
@@ -21,7 +21,12 @@ export default function App() {
       <FlatList
         keyExtractor={(item, index) => item.uid}
         data={courseGoals}
-        renderItem={(itemData) => <GoalItem title={itemData.item.value} />}
+        renderItem={(itemData) => (
+          <GoalItem
+            title={itemData.item.value}
+            onDelete={() => console.log('Pressed!')}
+          />
+        )}
       />
     </View>
   );
