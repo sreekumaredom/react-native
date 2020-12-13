@@ -1,47 +1,48 @@
-import React, { useState } from 'react';
-import { View, TextInput, StyleSheet, Button } from 'react-native';
+import React, { useState } from "react";
+import { View, TextInput, Button, StyleSheet, Modal } from "react-native";
 
-const GoalInput = ({ addGoalHandler }) => {
-  const [goalInput, setGoalInput] = useState('');
+const GoalInput = (props) => {
+  const [enteredGoal, setEnteredGoal] = useState("");
 
-  const goalInputHandler = (text) => {
-    setGoalInput(text);
+  const goalInputHandler = (enteredText) => {
+    setEnteredGoal(enteredText);
+  };
+
+  const addGoalHandler = () => {
+    props.onAddGoal(enteredGoal);
+    setEnteredGoal("");
   };
 
   return (
-    <View style={styles.inputContainer}>
-      <TextInput
-        placeholder="Course Goal"
-        style={styles.input}
-        onChangeText={goalInputHandler}
-        value={goalInput}
-      />
-      <Button title="ADD" onPress={addGoalHandler.bind(this, goalInput)} />
-    </View>
+    <Modal visible={props.visible} animationType="slide">
+      <View style={styles.inputContainer}>
+        <TextInput
+          placeholder="Course Goal"
+          style={styles.input}
+          onChangeText={goalInputHandler}
+          value={enteredGoal}
+        />
+        <Button title="CANCEL" onPress={props.onCancel} color="red" />
+        <Button title="ADD" onPress={addGoalHandler} />
+      </View>
+    </Modal>
   );
 };
 
 const styles = StyleSheet.create({
   inputContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flex: 1,
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
   },
   input: {
-    width: '80%',
-    borderColor: 'black',
+    width: "80%",
+    borderColor: "black",
     borderWidth: 1,
     padding: 10,
+    marginBottom: 10,
   },
 });
 
 export default GoalInput;
-
-/* Pre-renders everything down the list - use only for a small list 
-      <ScrollView >
-        {courseGoals.map((goal, i) => (
-          <View key={i} style={styles.listItem}>
-            <Text>{goal}</Text>
-          </View>
-        ))}
-      </ScrollView> */
