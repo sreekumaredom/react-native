@@ -32,7 +32,7 @@ const StartGameScreen = (props) => {
     setConfirmed(false);
   };
 
-  const confirmInputHandler = () => {
+  const confirmInputHandler = (props) => {
     const chosenNum = parseInt(enteredValue);
 
     if (isNaN(chosenNum) || chosenNum <= 0 || chosenNum > 99) {
@@ -56,7 +56,10 @@ const StartGameScreen = (props) => {
       <Card style={styles.summaryContainer}>
         <Text>You selected</Text>
         <NumberContainer>{selectedNumber}</NumberContainer>
-        <Button title="START GAME" />
+        <Button
+          title="START GAME"
+          onPress={() => props.onStartGame(selectedNumber)}
+        />
       </Card>
     );
   }
